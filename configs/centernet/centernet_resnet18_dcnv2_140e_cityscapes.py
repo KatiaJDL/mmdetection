@@ -12,7 +12,7 @@ model = dict(
         depth=18,
         norm_eval=False,
         norm_cfg=dict(type='BN'),
-        init_cfg=dict(init_cfg=None)),
+        init_cfg=None),
     neck=dict(
         type='CTResNetNeck',
         in_channel=512,
