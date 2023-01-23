@@ -3,10 +3,32 @@ _base_ = ['./centernet_resnet18_dcnv2_140e_coco.py']
 dataset_type = 'CityscapesDataset'
 data_root = '../data/cityscapes/'
 
-
-model = dict(bbox_head=dict(num_classes=8))
-
 work_dir = 'exp/centernet/cityscapes/resnet18_dcnv2_140e/'
+
+model = dict(
+    type='CenterNet',
+    backbone=dict(
+        type='ResNet',
+        depth=18,
+        norm_eval=False,
+        norm_cfg=dict(type='BN'),
+        init_cfg=None),
+    neck=dict(
+        type='CTResNetNeck',
+        in_channel=512,
+        num_deconv_filters=(256, 128, 64),
+        num_deconv_kernels=(4, 4, 4),
+        use_dcn=True),
+    bbox_head=dict(
+        type='CenterNetHead',
+        num_classes=8,
+        in_channel=64,
+        feat_channel=64,
+        loss_center_heatmap=dict(type='GaussianFocalLoss', loss_weight=1.0),
+        loss_wh=dict(type='L1Loss', loss_weight=0.1),
+        loss_offset=dict(type='L1Loss', loss_weight=1.0)),
+    train_cfg=None,
+    test_cfg=dict(topk=100, local_maximum_kernel=3, max_per_img=100))
 
 # We fixed the incorrect img_norm_cfg problem in the source code.
 img_norm_cfg = dict(
@@ -29,7 +51,7 @@ train_pipeline = [
         std=[1, 1, 1],
         to_rgb=True,
         test_pad_mode=None),
-    dict(type='Resize', img_scale=(512, 512), keep_ratio=True),
+    dict(type='Resize', img_scale=[(512, 512), (512, 512)], keep_ratio=True),
     dict(type='RandomFlip', flip_ratio=0.5),
     dict(type='Normalize', **img_norm_cfg),
     dict(type='DefaultFormatBundle'),
@@ -66,8 +88,8 @@ test_pipeline = [
 ]
 
 data = dict(
-    samples_per_gpu=4,
-    workers_per_gpu=4,
+    samples_per_gpu=1,
+    workers_per_gpu=2,
     train=dict(
         type='RepeatDataset',
         times=1,

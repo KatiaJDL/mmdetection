@@ -5,7 +5,7 @@ _base_ = [
     '../_base_/default_runtime.py'
 ]
 
-work_dir = 'exp/centernet/cityscapes/r50_dcnv2_1x/'
+work_dir = 'exp/centernet/cityscapes/resnet18_dcnv2_1x/'
 
 model = dict(
     type='CenterNet',
@@ -98,7 +98,7 @@ data = dict(
     workers_per_gpu=2,
     train=dict(
         type='RepeatDataset',
-        times=1,
+        times=5,
         dataset=dict(
             type=dataset_type,
             ann_file=data_root +
