@@ -117,3 +117,6 @@ data = dict(
 # USER SHOULD NOT CHANGE ITS VALUES.
 # base_batch_size = (1 GPU) x (4 samples per GPU)
 auto_scale_lr = dict(base_batch_size=4)
+
+# For better, more stable performance initialize from COCO
+load_from = 'https://download.openmmlab.com/mmdetection/v2.0/centernet/centernet_resnet18_dcnv2_140e_coco/centernet_resnet18_dcnv2_140e_coco_20210702_155131-c8cd631f.pth'  # noqa
