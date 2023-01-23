@@ -10,7 +10,7 @@ CLASSES = ('aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus', 'car',
 
 # dataset settings
 dataset_type = 'CocoDataset'
-data_root = 'data/VOCdevkit/'
+data_root = '../data/VOCdevkit/'
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
 train_pipeline = [
@@ -46,20 +46,20 @@ data = dict(
         times=3,
         dataset=dict(
             type=dataset_type,
-            ann_file='data/voc0712_trainval.json',
-            img_prefix='data/VOCdevkit',
+            ann_file='../data/voc0712_trainval.json',
+            img_prefix='../data/VOCdevkit',
             pipeline=train_pipeline,
             classes=CLASSES)),
     val=dict(
         type=dataset_type,
-        ann_file='data/voc07_test.json',
-        img_prefix='data/VOCdevkit',
+        ann_file='../data/voc07_test.json',
+        img_prefix='../data/VOCdevkit',
         pipeline=test_pipeline,
         classes=CLASSES),
     test=dict(
         type=dataset_type,
-        ann_file='data/voc07_test.json',
-        img_prefix='data/VOCdevkit',
+        ann_file='../data/voc07_test.json',
+        img_prefix='../data/VOCdevkit',
         pipeline=test_pipeline,
         classes=CLASSES))
 evaluation = dict(interval=1, metric='bbox')

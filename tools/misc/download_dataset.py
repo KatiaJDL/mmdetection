@@ -17,7 +17,7 @@ def parse_args():
         '--save-dir',
         type=str,
         help='the dir to save dataset',
-        default='data/coco')
+        default='../data/coco')
     parser.add_argument(
         '--unzip',
         action='store_true',

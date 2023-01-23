@@ -73,7 +73,7 @@ If you want to use `Mosaic` in training, please make sure that you use `MultiIma
 
 ```python
 # Open configs/faster_rcnn/faster_rcnn_r50_fpn_1x_coco.py directly and add the following fields
-data_root = 'data/coco/'
+data_root = '../data/coco/'
 dataset_type = 'CocoDataset'
 img_scale=(1333, 800)​
 img_norm_cfg = dict(

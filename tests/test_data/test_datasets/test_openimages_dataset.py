@@ -166,7 +166,7 @@ def _creat_oid_challenge_style_ann(txt_file, label_file, label_level_file):
 def _create_metas(meta_file):
 
     fake_meta = [{
-        'filename': 'data/OpenImages/OpenImages/validation/color.jpg',
+        'filename': '../data/OpenImages/OpenImages/validation/color.jpg',
         'ori_shape': (300, 300, 3)
     }]
     mmcv.dump(fake_meta, meta_file)

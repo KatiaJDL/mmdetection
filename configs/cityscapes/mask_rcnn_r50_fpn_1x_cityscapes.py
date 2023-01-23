@@ -2,6 +2,9 @@ _base_ = [
     '../_base_/models/mask_rcnn_r50_fpn.py',
     '../_base_/datasets/cityscapes_instance.py', '../_base_/default_runtime.py'
 ]
+
+work_dir = 'exp/maskrcnn/cityscapes/r50_fpn_1x/'
+
 model = dict(
     backbone=dict(init_cfg=None),
     roi_head=dict(

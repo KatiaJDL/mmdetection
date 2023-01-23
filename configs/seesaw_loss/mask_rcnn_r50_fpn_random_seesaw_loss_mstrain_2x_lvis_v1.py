@@ -53,7 +53,7 @@ test_pipeline = [
         ])
 ]
 dataset_type = 'LVISV1Dataset'
-data_root = 'data/lvis_v1/'
+data_root = '../data/lvis_v1/'
 data = dict(
     samples_per_gpu=2,
     workers_per_gpu=2,

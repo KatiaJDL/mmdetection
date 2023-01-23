@@ -29,7 +29,7 @@ file_client_args = dict(backend='disk')
 #     backend='petrel',
 #     path_mapping=dict({
 #         './data/': 's3://openmmlab/datasets/detection/',
-#         'data/': 's3://openmmlab/datasets/detection/'
+#         '../data/': 's3://openmmlab/datasets/detection/'
 #     }))
 
 img_norm_cfg = dict(

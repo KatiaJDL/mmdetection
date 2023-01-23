@@ -3,6 +3,9 @@ _base_ = [
     '../_base_/datasets/cityscapes_detection.py',
     '../_base_/default_runtime.py'
 ]
+
+work_dir = 'exp/fasterrcnn/cityscapes/r50_fpn_1x/'
+
 model = dict(
     backbone=dict(init_cfg=None),
     roi_head=dict(

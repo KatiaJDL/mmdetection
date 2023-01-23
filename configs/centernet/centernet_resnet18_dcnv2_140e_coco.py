@@ -3,6 +3,8 @@ _base_ = [
     '../_base_/schedules/schedule_1x.py', '../_base_/default_runtime.py'
 ]
 
+work_dir = 'exp/centernet/coco/resnet18_dcnv2_140e/'
+
 model = dict(
     type='CenterNet',
     backbone=dict(
@@ -86,7 +88,7 @@ test_pipeline = [
 ]
 
 dataset_type = 'CocoDataset'
-data_root = 'data/coco/'
+data_root = '../data/coco/'
 
 # Use RepeatDataset to speed up training
 data = dict(
@@ -95,7 +97,7 @@ data = dict(
     train=dict(
         _delete_=True,
         type='RepeatDataset',
-        times=5,
+        times=1,
         dataset=dict(
             type=dataset_type,
             ann_file=data_root + 'annotations/instances_train2017.json',

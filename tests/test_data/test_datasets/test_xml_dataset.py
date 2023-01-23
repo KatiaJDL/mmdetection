@@ -6,8 +6,8 @@ from mmdet.datasets import DATASETS
 
 def test_xml_dataset():
     dataconfig = {
-        'ann_file': 'data/VOCdevkit/VOC2007/ImageSets/Main/test.txt',
-        'img_prefix': 'data/VOCdevkit/VOC2007/',
+        'ann_file': '../data/VOCdevkit/VOC2007/ImageSets/Main/test.txt',
+        'img_prefix': '../data/VOCdevkit/VOC2007/',
         'pipeline': [{
             'type': 'LoadImageFromFile'
         }]

@@ -231,7 +231,7 @@ model = dict(
             mask_thr_binary=0.5)))  # mask 预处的阈值
 
 dataset_type = 'CocoDataset'  # 数据集类型，这将被用来定义数据集。
-data_root = 'data/coco/'  # 数据的根路径。
+data_root = '../data/coco/'  # 数据的根路径。
 img_norm_cfg = dict(  # 图像归一化配置，用来归一化输入的图像。
     mean=[123.675, 116.28, 103.53],  # 预训练里用于预训练主干网络模型的平均值。
     std=[58.395, 57.12, 57.375],  # 预训练里用于预训练主干网络模型的标准差。
@@ -296,8 +296,8 @@ data = dict(
     workers_per_gpu=2,  # 单个 GPU 分配的数据加载线程数
     train=dict(  # 训练数据集配置
         type='CocoDataset',  # 数据集的类别, 更多细节请参考 https://github.com/open-mmlab/mmdetection/blob/master/mmdet/datasets/coco.py#L19。
-        ann_file='data/coco/annotations/instances_train2017.json',  # 注释文件路径
-        img_prefix='data/coco/train2017/',  # 图片路径前缀
+        ann_file='../data/coco/annotations/instances_train2017.json',  # 注释文件路径
+        img_prefix='../data/coco/train2017/',  # 图片路径前缀
         pipeline=[  # 流程, 这是由之前创建的 train_pipeline 传递的。
             dict(type='LoadImageFromFile'),
             dict(
@@ -320,8 +320,8 @@ data = dict(
         ]),
     val=dict(  # 验证数据集的配置
         type='CocoDataset',
-        ann_file='data/coco/annotations/instances_val2017.json',
-        img_prefix='data/coco/val2017/',
+        ann_file='../data/coco/annotations/instances_val2017.json',
+        img_prefix='../data/coco/val2017/',
         pipeline=[  # 由之前创建的 test_pipeline 传递的流程。
             dict(type='LoadImageFromFile'),
             dict(
@@ -343,8 +343,8 @@ data = dict(
         ]),
     test=dict(  # 测试数据集配置，修改测试开发/测试(test-dev/test)提交的 ann_file
         type='CocoDataset',
-        ann_file='data/coco/annotations/instances_val2017.json',
-        img_prefix='data/coco/val2017/',
+        ann_file='../data/coco/annotations/instances_val2017.json',
+        img_prefix='../data/coco/val2017/',
         pipeline=[  # 由之前创建的 test_pipeline 传递的流程。
             dict(type='LoadImageFromFile'),
             dict(

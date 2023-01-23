@@ -1,7 +1,7 @@
 _base_ = '../_base_/default_runtime.py'
 # dataset settings
 dataset_type = 'CocoDataset'
-data_root = 'data/coco/'
+data_root = '../data/coco/'
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
 image_size = (1024, 1024)
@@ -12,7 +12,7 @@ file_client_args = dict(backend='disk')
 #     backend='petrel',
 #     path_mapping=dict({
 #         './data/': 's3://openmmlab/datasets/detection/',
-#         'data/': 's3://openmmlab/datasets/detection/'
+#         '../data/': 's3://openmmlab/datasets/detection/'
 #     }))
 
 train_pipeline = [

@@ -72,7 +72,7 @@ optimizer = dict(type='SGD', lr=0.01, momentum=0.9, weight_decay=0.0001)
 
 ```python
 # 直接打开 configs/faster_rcnn/faster_rcnn_r50_fpn_1x_coco.py ,增添如下字段
-data_root = 'data/coco/'
+data_root = '../data/coco/'
 dataset_type = 'CocoDataset'
 img_scale=(1333, 800)​
 img_norm_cfg = dict(

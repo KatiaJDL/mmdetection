@@ -6,7 +6,7 @@ model = dict(
 
 # dataset settings
 dataset_type = 'OpenImagesChallengeDataset'
-data_root = 'data/OpenImages/'
+data_root = '../data/OpenImages/'
 data = dict(
     train=dict(
         type=dataset_type,
