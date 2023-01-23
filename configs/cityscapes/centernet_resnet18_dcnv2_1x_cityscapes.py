@@ -84,14 +84,34 @@ test_pipeline = [
         ])
 ]
 
+dataset_type = 'CityscapesDataset'
+data_root = '../data/cityscapes/'
+
 data = dict(
+    samples_per_gpu=1,
+    workers_per_gpu=2,
     train=dict(
-        _delete_=True,
         type='RepeatDataset',
-        times=5,
-        dataset=dict(pipeline=train_pipeline)),
-    val=dict(pipeline=test_pipeline),
-    test=dict(pipeline=test_pipeline))
+        times=1,
+        dataset=dict(
+            type=dataset_type,
+            ann_file=data_root +
+            'annotations/instancesonly_filtered_gtFine_train.json',
+            img_prefix=data_root + 'leftImg8bit/train/',
+            pipeline=train_pipeline)),
+    val=dict(
+        type=dataset_type,
+        ann_file=data_root +
+        'annotations/instancesonly_filtered_gtFine_val.json',
+        img_prefix=data_root + 'leftImg8bit/val/',
+        pipeline=test_pipeline),
+    test=dict(
+        type=dataset_type,
+        ann_file=data_root +
+        'annotations/instancesonly_filtered_gtFine_test.json',
+        img_prefix=data_root + 'leftImg8bit/test/',
+        pipeline=test_pipeline))
+evaluation = dict(interval=1, metric='bbox')
 
 # optimizer
 # lr is set for a batch size of 8
