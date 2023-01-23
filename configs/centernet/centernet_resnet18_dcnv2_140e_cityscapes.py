@@ -3,7 +3,7 @@ _base_ = [
     '../_base_/schedules/schedule_1x.py', '../_base_/default_runtime.py'
 ]
 
-work_dir = 'exp/centernet/coco/resnet18_dcnv2_140e/'
+work_dir = 'exp/centernet/cityscapes/resnet18_dcnv2_140e/'
 
 model = dict(
     type='CenterNet',
@@ -12,7 +12,7 @@ model = dict(
         depth=18,
         norm_eval=False,
         norm_cfg=dict(type='BN'),
-        init_cfg=dict(None)),
+        init_cfg=dict(init_cfg=None)),
     neck=dict(
         type='CTResNetNeck',
         in_channel=512,
