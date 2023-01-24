@@ -1,9 +1,9 @@
-_base_ = ['./centernet_resnet18_dcnv2_140e_coco.py']
+_base_ = [
+    '../_base_/datasets/cityscapes_instance.py',
+    '../_base_/schedules/schedule_1x.py', '../_base_/default_runtime.py'
+]
 
-dataset_type = 'CityscapesDataset'
-data_root = '../data/cityscapes/'
-
-work_dir = 'exp/centernet/cityscapes/resnet18_dcnv2_140e/'
+work_dir = 'exp/centerpoly/cityscapes/resnet18_dcnv2_140e/'
 
 model = dict(
     type='CenterNet',
@@ -51,11 +51,11 @@ train_pipeline = [
         std=[1, 1, 1],
         to_rgb=True,
         test_pad_mode=None),
-    dict(type='Resize', img_scale=[(512, 512), (512, 512)], keep_ratio=True),
+    dict(type='Resize', img_scale=(512, 512), keep_ratio=True),
     dict(type='RandomFlip', flip_ratio=0.5),
     dict(type='Normalize', **img_norm_cfg),
     dict(type='DefaultFormatBundle'),
-    dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels'])
+    dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels', 'gt_masks'])
 ]
 test_pipeline = [
     dict(type='LoadImageFromFile', to_float32=True),
@@ -87,12 +87,17 @@ test_pipeline = [
         ])
 ]
 
+dataset_type = 'CityscapesDataset'
+data_root = '../data/cityscapes/'
+
+# Use RepeatDataset to speed up training
 data = dict(
-    samples_per_gpu=1,
-    workers_per_gpu=2,
+    samples_per_gpu=16,
+    workers_per_gpu=4,
     train=dict(
+         _delete_=True,
         type='RepeatDataset',
-        times=1,
+        times=5,
         dataset=dict(
             type=dataset_type,
             ann_file=data_root +
@@ -112,11 +117,29 @@ data = dict(
         img_prefix=data_root + 'leftImg8bit/test/',
         pipeline=test_pipeline))
 
+evaluation = dict(metric=['bbox', 'segm'])
+
+# optimizer
+# Based on the default settings of modern detectors, the SGD effect is better
+# than the Adam in the source code, so we use SGD default settings and
+# if you use adam+lr5e-4, the map is 29.1.
+optimizer_config = dict(
+    _delete_=True, grad_clip=dict(max_norm=35, norm_type=2))
+
+# learning policy
+# Based on the default settings of modern detectors, we added warmup settings.
+lr_config = dict(
+    policy='step',
+    warmup='linear',
+    warmup_iters=1000,
+    warmup_ratio=1.0 / 1000,
+    step=[18, 24])  # the real step is [18*5, 24*5]
+runner = dict(max_epochs=28)  # the real epoch is 28*5=140
 
 # NOTE: `auto_scale_lr` is for automatically scaling LR,
 # USER SHOULD NOT CHANGE ITS VALUES.
-# base_batch_size = (1 GPU) x (4 samples per GPU)
-auto_scale_lr = dict(base_batch_size=4)
+# base_batch_size = (8 GPUs) x (16 samples per GPU)
+auto_scale_lr = dict(base_batch_size=128)
 
 # For better, more stable performance initialize from COCO
 load_from = 'https://download.openmmlab.com/mmdetection/v2.0/centernet/centernet_resnet18_dcnv2_140e_coco/centernet_resnet18_dcnv2_140e_coco_20210702_155131-c8cd631f.pth'  # noqa
