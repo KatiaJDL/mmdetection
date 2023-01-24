@@ -5,6 +5,7 @@ import os
 import os.path as osp
 import time
 import warnings
+import wandb
 
 import mmcv
 import torch
@@ -208,6 +209,8 @@ def main():
     cfg.seed = seed
     meta['seed'] = seed
     meta['exp_name'] = osp.basename(args.config)
+
+    wandb.init(project="mmdetection", entity="kjdl", config=cfg)
 
     model = build_detector(
         cfg.model,
