@@ -9,7 +9,7 @@ model = dict(
     type='CenterNet',
     backbone=dict(
         type='HourglassNet',
-        num_stacks=2, #2 for CenterNet, 1 for CenterPoly
+        num_stacks=1, #2 for CenterNet, 1 for CenterPoly
         norm_cfg=dict(type='BN', requires_grad=True),
         pretrained=None,
         init_cfg=None),
@@ -92,7 +92,7 @@ data_root = '../data/cityscapes/'
 
 # Use RepeatDataset to speed up training
 data = dict(
-    samples_per_gpu=16,
+    samples_per_gpu=4,
     workers_per_gpu=4,
     train=dict(
          _delete_=True,
