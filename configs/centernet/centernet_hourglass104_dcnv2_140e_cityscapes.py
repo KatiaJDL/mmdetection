@@ -3,7 +3,7 @@ _base_ = [
     '../_base_/schedules/schedule_1x.py', '../_base_/default_runtime.py'
 ]
 
-work_dir = 'exp/centerpoly/cityscapes/hourglass_dcnv2_140e/'
+work_dir = 'exp/centernet/cityscapes/hourglass104_140e/'
 
 model = dict(
     type='CenterNet',

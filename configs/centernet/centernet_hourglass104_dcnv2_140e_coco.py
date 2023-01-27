@@ -1,6 +1,6 @@
 _base_ = './centernet_resnet18_dcnv2_140e_coco.py'
 
-work_dir = 'exp/centernet/coco/hourglass_dcnv2_140e/'
+work_dir = 'exp/centernet/coco/hourglass104_140e/'
 
 model = dict(
     backbone=dict(
