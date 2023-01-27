@@ -1,6 +1,6 @@
 _base_ = './centernet_resnet18_dcnv2_140e_coco.py'
 
-work_dir = 'exp/centernet/cococ/hourglass_dcnv2_140e/'
+work_dir = 'exp/centernet/coco/hourglass_dcnv2_140e/'
 
 model = dict(
     backbone=dict(
@@ -12,3 +12,8 @@ model = dict(
         init_cfg=None),
     neck=None,
     bbox_head=dict(in_channel=256))
+
+data = dict(
+    samples_per_gpu = 4,
+    workers_per_gpu = 4
+)
